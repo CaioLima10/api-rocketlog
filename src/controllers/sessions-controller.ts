@@ -1,7 +1,9 @@
+import { authConfig } from "@/configs/auth"
 import { prisma } from "@/database/prisma"
 import { AppError } from "@/utils/app-error"
 import { compare } from "bcrypt"
 import { Request, Response } from "express"
+import {sign} from "jsonwebtoken"
 import z from "zod"
 
 class SessionsController {
@@ -27,7 +29,13 @@ class SessionsController {
       throw new AppError("Invalid email or password!")
     }
 
-    return response.json({ message: "ok" }) 
+    const { secret } = authConfig.jwt
+
+    const token = await sign({ role: user.role ?? "customer" }, secret, {
+      subject: user.id
+    })
+
+    return response.json({ token }) 
   }
 
 }
