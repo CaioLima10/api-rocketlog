@@ -29,10 +29,11 @@ class SessionsController {
       throw new AppError("Invalid email or password!")
     }
 
-    const { secret } = authConfig.jwt
+    const { secret, expiresIn } = authConfig.jwt
 
     const token = await sign({ role: user.role ?? "customer" }, secret, {
-      subject: user.id
+      subject: user.id,
+      expiresIn
     })
 
     return response.json({ token }) 
