@@ -4,12 +4,13 @@
   "description": "API de entregas de encomendas",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch src/server.ts"
+    "dev": "tsx watch --env-file .env src/server.ts"
   },
   "author": "Caio lima",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@prisma/client": "^5.19.0",
     "express": "^4.19.2",
     "express-async-errors": "^3.1.1",
     "tsx": "^4.19.1",
