@@ -21,6 +21,15 @@ class DeliveriesController {
     
     return response.status(201).json()
   }
+
+  async index(request: Request, response: Response, next: NextFunction) {
+
+    const user = await prisma.delivery.findMany({
+      include: { user: { select: { name: true, email: true, role: true } }  }
+    })
+
+    return response.status(200).json(user)
+  }
 }
 
 export { DeliveriesController }
