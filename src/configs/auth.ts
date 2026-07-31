@@ -3,6 +3,6 @@ import { env } from "@/env";
 export const authConfig = {
   jwt: {
     secret: env.JWT_SECRET,
-    expiresIn: "id"
+    expiresIn: "1d"
   } 
 }
