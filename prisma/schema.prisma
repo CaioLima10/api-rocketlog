@@ -56,8 +56,9 @@ model Delivery {
 }
 
 model DeliveryLog {
-  id         String @id @default(uuid())
-  deliveryId String @map("delivery_id")
+  id          String @id @default(uuid())
+  deliveryId  String @map("delivery_id")
+  description String
 
   delivery Delivery @relation(fields: [deliveryId], references: [id])
 
