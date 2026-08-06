@@ -9,7 +9,7 @@ const deliveriesRoutes = Router()
 const deliveriesController = new DeliveriesController()
 const deliveriesStatusController = new DeliveriesStatusController()
 
-deliveriesRoutes.use(ensureAuthenticated, verifyAuthAuthorization(["customer", "sale"]))
+deliveriesRoutes.use(ensureAuthenticated, verifyAuthAuthorization(["customer","sale"]))
 
 deliveriesRoutes.post("/", deliveriesController.create)
 deliveriesRoutes.get("/", deliveriesController.index)
