@@ -52,12 +52,16 @@ class DeliveryLogsController {
       },
       include: {
         deliveryLogs: true,
-        user: true
+        user: true,
       }
     })
 
     if(request.user?.role === "customer" && request.user.role !== deliveryLog?.userId){
       throw new AppError("The user can only view their deliveries", 401)
+    }
+
+    if(deliveryLog?.status === "delivered") {
+      throw new AppError("this order has already been delivered")
     }
 
     return response.status(200).json({ deliveryLog })
