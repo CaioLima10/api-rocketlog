@@ -64,6 +64,8 @@ class DeliveryLogsController {
       throw new AppError("this order has already been delivered")
     }
 
+
+
     return response.status(200).json({ deliveryLog })
   }
 }
