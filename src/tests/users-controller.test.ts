@@ -1,7 +1,6 @@
 import request from "supertest"
 import { app } from "@/app"
 import { prisma } from "@/database/prisma"
-import { afterEach } from "node:test"
 
 
 describe("UsersController", () => {
@@ -35,6 +34,30 @@ describe("UsersController", () => {
 
     expect(response.status).toBe(400)
     expect(response.body.message).toBe("User with same email already exists")
+  })
+
+  it("should throw a validation error if email is invalid", async () => {
+
+    const response = await request(app).post("/users").send({
+      name: "João da silva",
+      email: "invalid-email",
+      password: "12345678"
+    })
+
+    expect(response.status).toBe(400)
+    expect(response.body.message).toBe("Validation error")
+  })
+
+  it("should throw a validation error if password is invalid", async () => {
+    const response = await request(app).post("/users").send({
+      name: "João da silva",
+      email: "joao.silva@example.com",
+      password: "1234"
+    })
+
+    expect(response.status).toBe(400)
+    expect(response.body.message).toBe("Validation error")
+
   })
 
 })
